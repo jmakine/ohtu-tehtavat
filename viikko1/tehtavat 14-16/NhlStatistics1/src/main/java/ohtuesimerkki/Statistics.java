@@ -8,10 +8,10 @@ import java.util.List;
 public class Statistics {
 
     private List<Player> players;
-
-    public Statistics() {
-        PlayerReader reader = new PlayerReader("https://nhlstatisticsforohtu.herokuapp.com/players.txt");
-        players = reader.getPlayers();       
+    
+    //Statictics saa konstruktoriparametrina Reader-tyyppisen olion:
+    public Statistics(Reader readerif) {
+        players = readerif.getPlayers();  
     }
 
     public Player search(String name) {

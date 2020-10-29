@@ -3,6 +3,9 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
+
+//file:///H:/ohtu-tehtavat/viikko1/tehtavat%2014-16/NhlStatistics1/build/reports/jacoco/test/html/ohtuesimerkki/Statistics.java.html
+
 package ohtuesimerkki;
 
 import java.util.List;
@@ -74,6 +77,7 @@ public class StatisticsTest {
         assertEquals(player3.toString(), stats.search("Kurri").toString());
         assertEquals(player4.toString(), stats.search("Yzerman").toString());
         assertEquals(player5.toString(), stats.search("Gretzky").toString());        
+        assertEquals(null, stats.search("Pertti"));        
     }
 
     @Test

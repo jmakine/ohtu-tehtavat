@@ -5,8 +5,11 @@
  * Learn more about Gradle by exploring our samples at https://docs.gradle.org/6.7/samples
  */
 
+//task 'run' ei ole java-pluginin vaan application-pluginin määrittelemä
+//Itseasiassa java-pluginin määrittelevää riviä ei nyt edes tarvita, sillä application sisältää myös sen määrittelevät taskit.
 plugins {
     id 'java'
+    id 'application'
 }
 
 jar {
@@ -14,3 +17,5 @@ jar {
         attributes 'Main-Class': 'Main'
     }
 }
+
+mainClassName = 'Main'

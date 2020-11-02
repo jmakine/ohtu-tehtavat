@@ -23,3 +23,11 @@ mainClassName = 'Main'
 run {
     standardInput = System.in
 }
+
+repositories {
+    jcenter()
+}
+
+dependencies {
+    testImplementation 'junit:junit:4.13'
+}

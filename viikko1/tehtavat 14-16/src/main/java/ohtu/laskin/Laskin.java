@@ -1,8 +1,13 @@
 package ohtu.laskin;
 
-public class Laskin {
-    private IO io;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
+@Component
+public class Laskin {
+    @Autowired
+    private IO io;
+    
     public Laskin(IO io) {
         this.io = io;
     }

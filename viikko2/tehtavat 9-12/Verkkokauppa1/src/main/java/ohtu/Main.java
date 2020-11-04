@@ -6,10 +6,11 @@ public class Main {
 
     public static void main(String[] args) {
         
-        KirjanpitoIntF kirjanpito = new Kirjanpito();
-        VarastoInterface varasto = new Varasto(kirjanpito);
+        Kirjanpito kirjanpito = new Kirjanpito();
+        Varasto varasto = new Varasto(kirjanpito);
         Pankki pankki = new Pankki(kirjanpito);
         Viitegeneraattori viitegen = new Viitegeneraattori(); 
+        
         Kauppa kauppa = new Kauppa(varasto, pankki, viitegen);
         
         // kauppa hoitaa yhden asiakkaan kerrallaan seuraavaan tapaan:

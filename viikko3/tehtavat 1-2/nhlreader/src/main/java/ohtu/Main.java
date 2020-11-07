@@ -6,6 +6,11 @@ import org.apache.http.client.fluent.Request;
 import java.util.Date;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.Comparator;
 
 public class Main {
     public static void main(String[] args) throws IOException {
@@ -21,13 +26,14 @@ public class Main {
         
         Gson mapper = new Gson();
         Player[] players = mapper.fromJson(bodyText, Player[].class);
+         
+        Arrays.sort(players, (Player m1, Player m2) -> m2.getPoints().compareTo(m1.getPoints()));
         
-        System.out.println("Players from FIN " + df.format(dateobj));
         for (Player player : players) {
             if(player.getNationality().equals("FIN")) {
-                System.out.println(player +" team "+ player.getTeam() +" goals "+ player.getGoals() +" assists "+ player.getAssists());
+                System.out.println(player +" "+ player.getTeam() +" "+ player.getGoals() +" + "+ player.getAssists()+" = " + player.getPoints());
             }
         }   
-    }
-  
+    }  
+
 }

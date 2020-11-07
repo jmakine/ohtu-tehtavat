@@ -1,0 +1,22 @@
+plugins {
+    id 'java'
+    id 'application'
+}
+
+repositories {
+    mavenCentral()
+    google()
+}
+
+dependencies {
+    compile 'org.apache.httpcomponents:fluent-hc:4.5.13'
+    compile 'com.google.code.gson:gson:2.8.6'
+}
+
+mainClassName = 'ohtu.Main'
+
+jar {
+    manifest {
+        attributes 'Main-Class': 'ohtu.Main'
+    }
+}

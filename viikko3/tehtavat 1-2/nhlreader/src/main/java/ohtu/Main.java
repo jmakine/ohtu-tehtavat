@@ -24,7 +24,9 @@ public class Main {
         
         System.out.println("Players from FIN " + df.format(dateobj));
         for (Player player : players) {
-            System.out.println(player +" team "+ player.getTeam() +" goals "+ player.getGoals() +" assists "+ player.getAssists());
+            if(player.getNationality().equals("FIN")) {
+                System.out.println(player +" team "+ player.getTeam() +" goals "+ player.getGoals() +" assists "+ player.getAssists());
+            }
         }   
     }
   

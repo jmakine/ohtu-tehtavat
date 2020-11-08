@@ -33,15 +33,5 @@ public class Stepdefs {
     public void itIsReset() {
         counter.val = 0;
     };
-    
-    /*@Then("the value should be {int}")
-    public void incrementedValueShouldBe(Integer val){
-        assertEquals(val.intValue(), counter.value());
-    }
-            
-    @Then("the value should be 0")
-    public void valueShoudBeZero() {
-        assertEquals(0, counter.value());
-    }*/
-    
+        
 }

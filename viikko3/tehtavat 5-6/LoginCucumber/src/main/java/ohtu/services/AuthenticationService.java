@@ -39,8 +39,12 @@ public class AuthenticationService {
     }
 
     private boolean invalid(String username, String password) {
-        // validity check of username and password
-
-        return false;
+        /* Käyttäjätunnuksen on oltava merkeistä a-z koostuva vähintään 3 merkin pituinen merkkijono, joka ei ole vielä käytössä.
+           Salasanan on oltava pituudeltaan vähintään 8 merkkiä ja se ei saa koostua pelkästään kirjaimista.
+        */
+        if(username.length() > 2 && userDao.findByName(username)==null && username.matches("[a-zA-Z]*") && password.length() > 8 && !password.matches("[a-zA-Z]*") ){
+            return false;
+        }
+        return true;
     }
 }

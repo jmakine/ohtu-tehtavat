@@ -6,6 +6,7 @@ import ohtu.authentication.AuthenticationService;
 import ohtu.data_access.FileUserDao;
 import ohtu.data_access.UserDao;
 import ohtu.util.CreationStatus;
+//import org.apache.slf4j.Logger;
 import spark.ModelAndView;
 import static spark.Spark.*;
 import spark.template.velocity.VelocityTemplateEngine;
@@ -18,7 +19,10 @@ public class Main {
     static AuthenticationService authService;
     
     public static void main(String[] args) {
+        
         port(findOutPort());
+        
+        //Logger.getLogger("org.apache").setLevel(Level.WARN);
               
         get("/", (request, response) -> {
             HashMap<String, String> model = new HashMap<>();

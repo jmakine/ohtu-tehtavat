@@ -6,7 +6,7 @@ import io.cucumber.java.en.When;
 import io.cucumber.java.en.Then;
 import static org.junit.Assert.*;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.chrome.ChromeDriver;
+//import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.htmlunit.HtmlUnitDriver;
@@ -38,21 +38,20 @@ public class Stepdefs {
         logInWith(username, password);
     }    
     
+    @When("nonexistent username {string} is given")
+    public void nonexistentUsernameIsGiven(String username){
+        assertTrue(driver.getPageSource().contains("Give your credentials to login"));
+        WebElement element = driver.findElement(By.name("username"));
+        element.sendKeys(username);        
+        element = driver.findElement(By.name("login"));
+        element.submit();
+    }
+    
     @Then("user is not logged in and error message is given")
     public void userIsNotLoggedInAndErrorMessageIsGiven() {
         pageHasContent("invalid username or password");
         pageHasContent("Give your credentials to login");
-    }    
-    
-    @When("username {string} and password {string} are given")
-    public void usernameAndPasswordAreGiven(String username, String password) throws Throwable {
-        logInWith(username, password);
     }   
-    
-    @Then("system will respond {string}")
-    public void systemWillRespond(String pageContent) throws Throwable {
-        assertTrue(driver.getPageSource().contains(pageContent));
-    }
     
     @After
     public void tearDown(){

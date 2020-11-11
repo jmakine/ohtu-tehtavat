@@ -46,10 +46,14 @@ public class AuthenticationService {
             status.addError("password should not consist of only characters a-z and A-Z");
         }
 
+        if (!password.equals(passwordConfirmation)) {
+            status.addError("password and password confirmation do not match"); 
+        }
+        
         if (status.isOk()) {
             userDao.add(new User(username, password));
         }
-        
+                
         return status;
     }
 

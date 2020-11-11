@@ -1,4 +1,2 @@
-/viikko1/tehtavat 14-16/NhlStatistics1/.gradle
-/viikko1/tehtavat 14-16/NhlStatistics1/build
-/viikko3/tehtavat 7-11/WebLogin/build
-/viikko3/tehtavat 7-11/WebLogin/.gradle
+.gradle/
+build/

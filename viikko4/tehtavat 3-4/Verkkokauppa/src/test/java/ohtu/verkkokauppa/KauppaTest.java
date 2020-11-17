@@ -1,5 +1,6 @@
 package ohtu.verkkokauppa;
 
+import java.util.List;
 import org.junit.Before;
 import org.junit.Test;
 import static org.junit.Assert.*;
@@ -112,7 +113,7 @@ public class KauppaTest {
         // m‰‰ritell‰‰n ett‰ tuote numero 1 on maito jonka hinta on 5 ja saldo 10
         when(varasto.saldo(1)).thenReturn(10); 
         when(varasto.haeTuote(1)).thenReturn(new Tuote(1, "maito", 5));
-        // m‰‰ritell‰‰n ett‰ tuote numero 2 on leip‰ jonka hinta on 5 ja saldo 10
+        // m‰‰ritell‰‰n ett‰ tuote numero 2 on leip‰ jonka hinta on 5 ja saldo 0
         when(varasto.saldo(2)).thenReturn(0); 
         when(varasto.haeTuote(2)).thenReturn(new Tuote(2, "leip‰", 5));
 
@@ -125,6 +126,67 @@ public class KauppaTest {
         // sitten suoritetaan varmistus, ett‰ pankin metodia tilisiirto on kutsuttu
         // oikealla asiakkaalla, tilinumerolla ja summalla (pankki.tilisiirto(nimi, viite, tiliNumero, kaupanTili, summa))
         verify(pankki).tilisiirto(eq("pekka"), anyInt(), eq("12345"), anyString(), eq(5));          
+    }
+    
+    @Test
+    public void aloitaAsiointiNollaaEdellisenOstoksenTiedot() {
+        // m‰‰ritell‰‰n ett‰ viitegeneraattori palauttaa viitten 42
+        when(viite.uusi()).thenReturn(42);
+        
+        // m‰‰ritell‰‰n ett‰ tuote numero 1 on maito jonka hinta on 5 ja saldo 10
+        when(varasto.saldo(1)).thenReturn(10); 
+        when(varasto.haeTuote(1)).thenReturn(new Tuote(1, "maito", 5));
+        
+        // tehd‰‰n ekat ostokset
+        k.aloitaAsiointi();
+        k.lisaaKoriin(1);       // ostetaan tuotetta numero 1 eli maitoa
+        
+        // aloitetaan asiointi alusta, uudella ostoskorilla
+        k.aloitaAsiointi();
+        k.lisaaKoriin(1);       // ostetaan tuotetta numero 1 eli maitoa
+
+        k.tilimaksu("pekka", "12345");
+
+        // sitten suoritetaan varmistus, ett‰ pankin metodia tilisiirto on kutsuttu
+        // oikealla summalla, eli hinta on 5 eik‰ 10
+        verify(pankki).tilisiirto(anyString(), anyInt(), anyString(), anyString(), eq(5));                  
+    }
+    
+    @Test
+    public void kauppaPyytaaUudenViitenumeronJokaiselleMaksutapahtumalle() {
+        // m‰‰ritell‰‰n ett‰ viitegeneraattori palauttaa viitten 42
+        //when(viite.uusi()).thenReturn(42);
+        
+        // m‰‰ritell‰‰n ett‰ tuote numero 1 on maito jonka hinta on 5 ja saldo 10
+        when(varasto.saldo(1)).thenReturn(10); 
+        when(varasto.haeTuote(1)).thenReturn(new Tuote(1, "maito", 5));
+        
+        // tehd‰‰n ekat ostokset
+        k.aloitaAsiointi();
+        k.lisaaKoriin(1);       // ostetaan tuotetta numero 1 eli maitoa
+        k.tilimaksu("pekka", "12345");
+        
+        // tarkistetaan ett√§ t√§ss√§ vaiheessa viitegeneraattorin metodia uusi()
+        // on kutsuttu kerran
+        verify(viite, times(1)).uusi();
+        
+        // tehd‰‰n tokat ostokset
+        k.aloitaAsiointi();
+        k.lisaaKoriin(1);       // ostetaan tuotetta numero 1 eli maitoa
+        k.tilimaksu("pekka", "12345");
+        
+        // tarkistetaan ett√§ t√§ss√§ vaiheessa viitegeneraattorin metodia uusi()
+        // on kutsuttu kahdesti
+        verify(viite, times(2)).uusi();
+        
+        // tehd‰‰n kolmannet ostokset
+        k.aloitaAsiointi();
+        k.lisaaKoriin(1);       // ostetaan tuotetta numero 1 eli maitoa
+        k.tilimaksu("pekka", "12345");
+        
+        // tarkistetaan ett√§ t√§ss√§ vaiheessa viitegeneraattorin metodia uusi()
+        // on kutsuttu kolmesti
+        verify(viite, times(3)).uusi();        
     }
     
 }

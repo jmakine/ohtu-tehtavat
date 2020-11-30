@@ -12,8 +12,7 @@ public class Main {
                              new HasAtLeast(5, "assists"),
                              new PlaysIn("PHI")
         );
-        */
-        /*
+                
         Matcher m = new And( 
                             new Not( new HasAtLeast(1, "goals") ), 
                             new PlaysIn("NYR")
@@ -28,7 +27,7 @@ public class Main {
         
         Matcher m = new Or( new HasAtLeast(40, "goals"),
                             new HasAtLeast(60, "assists")
-        ); */
+        ); 
         
         Matcher m = new And(
                             new HasAtLeast(50, "points"),
@@ -38,9 +37,21 @@ public class Main {
                                 new PlaysIn("BOS")
                             )
         );
+        */
+        
+        QueryBuilder query = new QueryBuilder();
+ 
+        //Matcher m = query.playsIn("NYR").build();
+        //Matcher m = query.build();
+        
+        Matcher m = query.playsIn("NYR")
+                         .hasAtLeast(5, "goals")
+                         .hasFewerThan(10, "goals").build();
         
         for (Player player : stats.matches(m)) {
             System.out.println(player);
         }
+        
+        System.out.println(stats.matches(m).size());
     }
 }
